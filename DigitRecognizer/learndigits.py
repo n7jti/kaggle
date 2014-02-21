@@ -35,7 +35,7 @@ def main ():
 
     # Set the parameters by cross-validation
     C=10
-    gamma=1e-7
+    gamma=5e-7
     
     clf = svm.SVC(C=C, gamma=gamma)
 

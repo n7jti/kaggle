@@ -29,7 +29,7 @@ def main ():
 
     print 'writing out answer', time.asctime(time.localtime())
     f=open('submitme.cv', 'w')
-    f.write('ImageId, Label\n')
+    f.write('ImageId,Label\n')
 
     for idx in range(y_hat.shape[0]):
         f.write(str(idx+1))

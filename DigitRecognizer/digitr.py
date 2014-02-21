@@ -44,13 +44,12 @@ def main ():
     # Set the parameters by cross-validation
     C=[]
     gamma=[]
-    for i in range(21): C.append(10.0**(i-5))
-    for i in range(17): gamma.append(10**(i-14))
+    for i in range(4): gamma.append( 4.5e-7 + i * 0.25e-7)
+    for i in range(1,5): C.append( i * 10 )
 
-    tuned_parameters = [{'kernel': ['rbf'], 'gamma': gamma, 'C': C},
-                        {'kernel': ['linear'], 'C': C}]
+    tuned_parameters = [{'kernel': ['rbf'], 'gamma': gamma, 'C': C}]
 
-    clf = GridSearchCV(svm.SVC(), tuned_parameters, cv=5, scoring='accuracy')
+    clf = GridSearchCV(svm.SVC(kernel='rbf'), tuned_parameters, cv=10, scoring='accuracy')
 
     # We learn the digits on the first half of the digits
     clf.fit(x_train, y_train)
@@ -65,7 +64,7 @@ def main ():
     print "Grid scores on development set:"
     print
     for params, mean_score, scores in clf.grid_scores_:
-        print ("%0.3f (+/-%0.03f) for %r" % (mean_score, scores.std() / 2, params))
+        print ("%0.5f (+/-%0.03f) for %r" % (mean_score, scores.std() / 2, params))
     print
 
     print("Classification report for classifier %s:\n%s\n"
